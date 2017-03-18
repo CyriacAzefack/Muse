@@ -2,7 +2,15 @@
 //Load required packages
 var express = require('express');
 
+var bodyParser = require('body-parser')
+
 var app = express();
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({extended: false}))
+
+// parse application/json
+app.use(bodyParser.json())
 
 //Generic PORT allocation 
 app.listen(process.env.PORT || 5000, function () {
@@ -12,9 +20,9 @@ app.listen(process.env.PORT || 5000, function () {
 
    
 /*
-##################
-# Home call : /  #
-##################
+###############
+# INDEX  : /  #
+###############
 */
 app.get('/', function (req, res) {
   res.send('Hello World!');
@@ -22,9 +30,9 @@ app.get('/', function (req, res) {
 })
 
 /*
-#################################
-# Webhook  GET call : /webhook  #
-#################################
+##############################################
+# Webhook Subscribtion  GET call : /webhook  #
+##############################################
 */
 .get('/webhook', function (req, res) {
 
