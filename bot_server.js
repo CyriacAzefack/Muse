@@ -160,7 +160,7 @@ function sendGenericMessage(recipientId) {
             title: "Occulus RIFT",
             subtitle: "Next-generation virtual reality",
             item_url: "https://www.oculus.com/en-us/rift/",               
-            image_url: "http://messengerdemo.parseapp.com/img/rift.png",
+            image_url: "https://images-na.ssl-images-amazon.com/images/I/61ahfXnBa0L._SX522_.jpg",
             buttons: [{
               type: "web_url",
               url: "https://www.oculus.com/en-us/rift/",
@@ -174,7 +174,7 @@ function sendGenericMessage(recipientId) {
             title: "touch",
             subtitle: "Your Hands, Now in VR",
             item_url: "https://www.oculus.com/en-us/touch/",               
-            image_url: "http://messengerdemo.parseapp.com/img/touch.png",
+            image_url: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTFlK3Y_9c10uyOlAACZE01UVF_3rYFLJhgmfQjiQJQ4BJBkObT1w",
             buttons: [{
               type: "web_url",
               url: "https://www.oculus.com/en-us/touch/",
