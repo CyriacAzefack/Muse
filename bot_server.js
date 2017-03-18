@@ -7,12 +7,12 @@ app.listen(4444, function () {
   console.log('Muse Server Started ...');
 });
 
-/*
+/
 //Diffents call
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
-*/
+
 
 app.get('/webhook', function (req, res) {
 
