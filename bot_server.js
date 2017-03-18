@@ -8,7 +8,7 @@ var app = express();
 app.listen(process.env.PORT || 5000, function () {
 
   console.log('Muse Server Started ...');
-})
+});
 
    
 /*
@@ -16,7 +16,7 @@ app.listen(process.env.PORT || 5000, function () {
 # Home call : /  #
 ##################
 */
-.get('/', function (req, res) {
+app.get('/', function (req, res) {
   res.send('Hello World!');
 
 })
