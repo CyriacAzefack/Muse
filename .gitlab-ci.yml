@@ -1,0 +1,11 @@
+image: node:latest
+
+
+stages:
+  - deploy
+
+
+job_deploy:
+  stage: deploy
+  script:
+    - npm start
