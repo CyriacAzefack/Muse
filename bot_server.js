@@ -234,9 +234,14 @@ function callSendAPI(messageData) {
 
       console.log("Successfully sent generic message with id %s to recipient %s", 
         messageId, recipientId);
-    } else {
-      console.error("Unable to send message.");
+    } else if (response.statusCode != 200) {
+      console.error("Unable to send message. the response status is %s. Check the error details below...", response.statusCode);
       //console.error(response);
+      console.error(error);
+    }
+
+    else {
+      console.error("Unable to send message due to an unknown issue");
       console.error(error);
     }
   });  
