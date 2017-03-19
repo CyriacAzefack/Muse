@@ -237,6 +237,7 @@ function callSendAPI(messageData) {
     } else if (response.statusCode != 200) {
       console.error("Unable to send message. the response status is %s. Check the error details below...", response.statusCode);
       console.error(response);
+      
       console.error(error);
     }
 
