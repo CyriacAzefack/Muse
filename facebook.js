@@ -19,7 +19,7 @@ function sendMessage(messageData) {
 			qs: { acces_token: config.facebook.pageAccessToken},
 			method: 'POST',
 			json: messageData,
-		}, function(err, response) {
+		}, function(error, response) {
 			if(!error && response.statusCode === 200) {
 				console.log('Message sent!!');
 				resolve();
