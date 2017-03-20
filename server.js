@@ -1,13 +1,10 @@
 
 /*
-##########################
-# WELCOM TO MUSE AutoBot #
-##########################
+#########################
+# WELCOM TO MUSE Server #
+#########################
 */
 
-// Connections Tokens
-var SUB_TOKEN = "facebook_token_on_muse_oklm";
-var PAGE_TOKEN = "EAAFvDZAesZCTsBAEaeSlGpetwu3wAsUScNSCfN2ALEZCAp8S4Qfro2U9bwm6GIPfcs2U47yqKIPozXeL2e5KSFDq2GfdCZCCBa8C6B4Upjef48hIsqacBVX20HuXNt1k1yZAQnSE0mkR9BeoCTe0jBPqsLVIcXSsHPJCeYkqbfAZDZD";
 
 
 //Load required packages
@@ -16,6 +13,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 
 var request = require('request');
+
+var bot = require('./bot.js');
+
+var config = require('./config.json');
 
 var app = express();
 
@@ -50,7 +51,7 @@ app.get('/', function (req, res) {
 .get('/webhook', function (req, res) {
 
   console.log(req.quey);
-  if (req.query['hub.verify_token'] === SUB_TOKEN) {
+  if (req.query['hub.verify_token'] === config.facebook.subscriptionToken) {
     res.send(req.query['hub.challenge']);
   } 
   else {
@@ -81,7 +82,7 @@ app.get('/', function (req, res) {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         if (event.message) {
-          receivedMessage(event);
+          bot.handleMessage(event);
         } 
 
         else {
@@ -223,7 +224,7 @@ function sendTextMessage(recipientId, messageText) {
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
-    qs: { access_token: PAGE_TOKEN },
+    qs: { access_token: config.facebook.pageAccessToken},
     method: 'POST',
     json: messageData
 
