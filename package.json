@@ -4,12 +4,13 @@
   "description": "",
   "main": "bot_server.js",
   "scripts": {
-    "start" : "node bot_server.js",
+    "start": "node bot_server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "recastai": "^2.3.0"
   }
 }
