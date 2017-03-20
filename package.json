@@ -2,9 +2,9 @@
   "name": "chatbot",
   "version": "1.0.0",
   "description": "",
-  "main": "bot_server.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node bot_server.js",
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
