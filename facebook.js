@@ -13,7 +13,7 @@ var config = require('./config.json');
 	Call the Facebook API to send a message
 */
 function sendMessage(messageData) {
-	return new Promise(function(resolve, rejetct) {
+	return new Promise(function(resolve, reject) {
 		request({
 			uri: 'https://graph.facebook.com/v2.6/me/messages',
 			qs: { acces_token: config.facebook.pageAccessToken},
