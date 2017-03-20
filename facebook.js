@@ -83,3 +83,8 @@ function replyButton(recipientID, option) {
 
 	sendMessage(messageData);
 }
+
+module.exports = {
+  replyMessage,
+  replyButton,
+}

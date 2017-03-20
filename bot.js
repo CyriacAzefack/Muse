@@ -76,3 +76,7 @@ function handleMessage(event) {
 	}
 }
 
+
+module.exports = {
+	handleMessage
+}
