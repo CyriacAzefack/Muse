@@ -24,8 +24,11 @@ function sendMessage(messageData) {
 				console.log('Message sent!!');
 				resolve();
 			}
-			else {
+			else if (error) {
 				reject(error);
+			}
+			else {
+				reject(response)
 			}
 		});
 	});
