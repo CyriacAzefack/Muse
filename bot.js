@@ -54,12 +54,16 @@ function handleMessage(event) {
 				let promise = Promise.resolve();
 				replies.forEach(function(rep) {
 					promise = promise.then(function() {
-						facebook.replyMessage(senderID, rep);
+						facebook.replyMessage(senderID, rep).catch(function(err) {
+							console.error("Failed sending : %s", rep);
+							console.error(err);
+						});
+
 					});
 				});
 
 				promise.then(function() {
-					console.log("Message sent successfully to : '%s'", senderID);
+					console.log("Messages sending...");
 				}). catch(function(err) {
 					console.error("Message to '%s' Failed!! Check the logs for more details", senderID);
 					console.error(err);
