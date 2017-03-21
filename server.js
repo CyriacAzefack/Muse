@@ -39,7 +39,7 @@ app.listen(process.env.PORT || 5000, function () {
 ###############
 */
 app.get('/', function (req, res) {
-  res.send('Hello World!');
+  res.send('Welcome to the Muse Chat Bot :) !!');
 
 })
 
