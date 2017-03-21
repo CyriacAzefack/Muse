@@ -28,8 +28,7 @@ function sendMessage(messageData) {
 				reject(error);
 			}
 			else {
-				//reject("Status Code is not 200 : ", response.statusCode);
-				reject(response);
+				reject(response.body.error);
 			}
 		});
 	});
