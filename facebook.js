@@ -9,7 +9,6 @@ var request = require('request');
 
 var config = require('./config.json');
 
-var server = require('./server.js');
 
 /*
 	Call the Facebook API to send a message
@@ -58,7 +57,7 @@ function replyMessage(recipientID, messageText) {
 		});
 		*/
 
-		server.callSendAPI(messageData)
+		callSendAPI(messageData)
 	});
 }
 
@@ -90,8 +89,44 @@ function replyButton(recipientID, option) {
 		},
 	};
 
-	server.callSendAPI(messageData);
+	callSendAPI(messageData);
 }
+
+
+/*
+###############
+# callSendAPI #
+################
+*/  
+//Call the SEND API
+function callSendAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: config.facebook.pageAccessToken},
+    method: 'POST',
+    json: messageData
+
+  }, function (error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var recipientId = body.recipient_id;
+      var messageId = body.message_id;
+
+      console.log("Successfully sent generic message with id %s to recipient %s", 
+        messageId, recipientId);
+    } else if (response.statusCode != 200) {
+      console.error("Unable to send message. the response status is %s. Check the error details below...", response.statusCode);
+      console.error(body);
+      
+      console.error(error);
+    }
+
+    else {
+      console.error("Unable to send message due to an unknown issue");
+      console.error(error);
+    }
+  });  
+}
+
 
 module.exports = {
   replyMessage,
