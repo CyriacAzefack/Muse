@@ -9,6 +9,8 @@ var request = require('request');
 
 var config = require('./config.json');
 
+var server = require('./server.js');
+
 /*
 	Call the Facebook API to send a message
 */
@@ -48,11 +50,15 @@ function replyMessage(recipientID, messageText) {
 			},
 		};
 
+		/*
 		sendMessage(messageData).then(function() {
 			resolve();
 		}).catch(function(err) {
 			reject(err);
 		});
+		*/
+
+		server.callSendAPI(messageData)
 	});
 }
 
@@ -84,7 +90,7 @@ function replyButton(recipientID, option) {
 		},
 	};
 
-	sendMessage(messageData);
+	server.callSendAPI(messageData);
 }
 
 module.exports = {

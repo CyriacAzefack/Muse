@@ -219,7 +219,7 @@ function sendTextMessage(recipientId, messageText) {
 ###############
 # callSendAPI #
 ################
-*/
+*/  
 //Call the SEND API
 function callSendAPI(messageData) {
   request({
@@ -248,3 +248,7 @@ function callSendAPI(messageData) {
     }
   });  
 }
+
+module.exports = {
+  callSendAPI,
+};
