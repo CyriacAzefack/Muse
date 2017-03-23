@@ -10,30 +10,6 @@ var request = require('request');
 var config = require('./config.json');
 
 
-/*
-	Call the Facebook API to send a message
-*/
-function sendMessage(messageData) {
-	return new Promise(function(resolve, reject) {
-		request({
-			uri: 'https://graph.facebook.com/v2.6/me/messages',
-			qs: { acces_token: config.facebook.pageAccessToken},
-			method: 'POST',
-			json: messageData,
-		}, function(error, response, body) {
-			if(!error && response.statusCode === 200) {
-				console.log('Message sent!!');
-				resolve();
-			}
-			else if (error) {
-				reject(error);
-			}
-			else {
-				reject(body.error);
-			}
-		});
-	});
-}
 
 /*
 * Simple text message
@@ -116,8 +92,6 @@ function callSendAPI(messageData) {
     } else if (response.statusCode != 200) {
       console.error("Unable to send message. the response status is %s. Check the error details below...", response.statusCode);
       console.error(body);
-      
-      console.error(error);
     }
 
     else {
@@ -125,6 +99,32 @@ function callSendAPI(messageData) {
       console.error(error);
     }
   });  
+}
+
+
+/*
+	Call the Facebook API to send a message
+*/
+function sendMessage(messageData) {
+	return new Promise(function(resolve, reject) {
+		request({
+			uri: 'https://graph.facebook.com/v2.6/me/messages',
+			qs: { acces_token: config.facebook.pageAccessToken},
+			method: 'POST',
+			json: messageData,
+		}, function(error, response, body) {
+			if(!error && response.statusCode === 200) {
+				console.log('Message sent!!');
+				resolve();
+			}
+			else if (error) {
+				reject(error);
+			}
+			else {
+				reject(body.error);
+			}
+		});
+	});
 }
 
 
