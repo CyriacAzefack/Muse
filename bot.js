@@ -34,9 +34,11 @@ function handleMessage(event) {
 			const reply = res.reply; 		//First reply of the bot
 			const replies = res.replies;	//All the bot replies
 			const action = res.action; 		// Get the current action
-			const intent = res.intent();
+			const intents = res.intents;
 
-			if (intent.slug === 'geetings' && intent.confidence > 0.7) {
+			console.log(intents)
+
+			if (intents.slug === 'geetings' && intent.confidence > 0.7) {
       			// Do your code
       			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
     		}	
