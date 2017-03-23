@@ -36,12 +36,15 @@ function handleMessage(event) {
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
+			intents.forEach(function(intent) {
+				if (intent.slug === 'geetings' && intent.confidence > 0.6) {
+	      			// Do your code
+	      			console.log("Reset Memory !!")
+	      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
+    			}
+			});
 
-			if (intents.slug === 'geetings') {
-      			// Do your code
-      			console.log("Reset Memory !!")
-      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
-    		}
+			
 
 			if(!reply || messageText === "Test button") {
 				const options = {
