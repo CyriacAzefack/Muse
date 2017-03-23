@@ -38,11 +38,11 @@ function handleMessage(event) {
 
 						
 			intents.forEach(function(intent) {
-				console.log(intent)
+				
 				if (intent.slug === 'greetings' && intent.confidence > 0.6) {
 	      			// Do your code
 	      			console.log("Reset Memory !!")
-	      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
+	      			
     			}
 			});
 
@@ -86,6 +86,8 @@ function handleMessage(event) {
 			console.error("RecastAI conversation failed!! Check the logs for more details");
 			console.error(err);
 		});
+
+		Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
 	}
 
 	else if (messageAttachments) {
