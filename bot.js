@@ -47,7 +47,7 @@ function handleMessage(event) {
 				if (intent.slug === 'greetings' && intent.confidence > 0.6) {
 	      			// Do your code
 	      			console.log("Reset Memory !!");
-	      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+	      			recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
 
 	      			client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 	      				replies = res.replies;
