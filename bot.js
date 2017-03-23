@@ -18,7 +18,7 @@ var config = require('./config.json');
 
 var client = new recastai.Client(config.recastai.requestAccessToken, config.recastai.lang);
 
-client.textConverse("Init").then(function(res) {});
+
 
 
 
@@ -31,7 +31,7 @@ function handleMessage(event) {
 	const messageText = event.message.text;
 	const messageAttachments = event.message.attachments;
 	
-
+	client.textConverse("Init").then(function(res) {});
 	
 	if (messageText) { //Check if message is not empty
 
