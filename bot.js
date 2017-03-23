@@ -14,9 +14,11 @@ var recastai = require('recastai');
 var facebook = require('./facebook.js');
 
 var config = require('./config.json');
+
+
 var client = new recastai.Client(config.recastai.requestAccessToken, config.recastai.lang);
 
-var conversation = null;
+
 
 console.log(client);
 
@@ -26,17 +28,22 @@ function handleMessage(event) {
 	const senderID = event.sender.id;
 	const messageText = event.message.text;
 	const messageAttachments = event.message.attachments;
-
+	
+	var myConversationToken  = null;
+	client.textConverse("blablabla").then(function(res) {
+		myConversationToken = res.conversation_token;
+	});
+	
 	
 	if (messageText) { //Check if message is not empty
 
-		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
+		client.textConverse(messageText, { conversationToken: myConversationToken}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
 			const replies = res.replies;	//All the bot replies
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
-						
+			/*		
 			intents.forEach(function(intent) {
 				
 				if (intent.slug === 'greetings' && intent.confidence > 0.6) {
@@ -46,8 +53,8 @@ function handleMessage(event) {
     			}
 			});
 
+			*/
 			
-
 			if(!reply || messageText === "Test button") {
 				const options = {
 					messageText: null,
@@ -87,7 +94,7 @@ function handleMessage(event) {
 			console.error(err);
 		});
 
-		Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
+		
 	}
 
 	else if (messageAttachments) {
@@ -98,4 +105,4 @@ function handleMessage(event) {
 
 module.exports = {
 	handleMessage
-}
+};
