@@ -36,9 +36,8 @@ function handleMessage(event) {
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
-			console.log(intents)
 
-			if (intents.slug === 'geetings' && intent.confidence > 0.7) {
+			if (intents.slug === 'geetings') {
       			// Do your code
       			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
     		}	
