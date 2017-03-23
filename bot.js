@@ -39,8 +39,10 @@ function handleMessage(event) {
 
 			if (intents.slug === 'geetings') {
       			// Do your code
+      			console.log("Reset Memory !!")
       			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
-    		}	
+    		}
+
 			if(!reply || messageText === "Test button") {
 				const options = {
 					messageText: null,
