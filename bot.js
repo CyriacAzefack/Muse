@@ -36,6 +36,8 @@ function handleMessage(event) {
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
+			console.log('Intents')
+			console.log(intents)
 			intents.forEach(function(intent) {
 				if (intent.slug === 'geetings' && intent.confidence > 0.6) {
 	      			// Do your code
