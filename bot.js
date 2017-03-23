@@ -37,8 +37,9 @@ function handleMessage(event) {
 			const intents = res.intents;
 
 			console.log('Intents')
-			console.log(intents)
+			
 			intents.forEach(function(intent) {
+				console.log(intent)
 				if (intent.slug === 'geetings' && intent.confidence > 0.6) {
 	      			// Do your code
 	      			console.log("Reset Memory !!")
