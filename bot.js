@@ -18,7 +18,7 @@ var config = require('./config.json');
 
 var client = new recastai.Client(config.recastai.requestAccessToken, config.recastai.lang);
 
-
+client.textConverse("Init").then(function(res) {});
 
 
 
@@ -31,34 +31,35 @@ function handleMessage(event) {
 	const messageText = event.message.text;
 	const messageAttachments = event.message.attachments;
 	
-	client.textConverse("Init").then(function(res) {});
+
 	
 	if (messageText) { //Check if message is not empty
 
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
-			var replies = res.replies;	//All the bot replies
+			const replies = res.replies;	//All the bot replies
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
-					
+			
+			/*
 			intents.forEach(function(intent) {
 				
 				if (intent.slug === 'greetings' && intent.confidence > 0.6) {
 	      			// Do your code
-	      			console.log("Reset Memory !!");
-	      			recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+	      			console.log("Reset Memory !!")
+	      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
 
 	      			client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
-	      				replies = res.replies;
-
-	      			});
     			}
 			});
 
-			
-			
-			if(messageText === "Test button") {
+			*/
+			if(messageText === "Reset") {
+				recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+				facebook.replyMessage(senderID, "Conversation  remise à zero");
+			}
+			else if(messageText === "Test button") {
 				const options = {
 					messageText: null,
 					title: 		'Kidogo -- Diamond Platnumz',
@@ -72,6 +73,7 @@ function handleMessage(event) {
 			}
 
 			else {
+
 				//Promise : Asynchronous manager
 				let promise = Promise.resolve();
 				replies.forEach(function(rep) {
@@ -103,8 +105,6 @@ function handleMessage(event) {
 		facebook.replyMessage(senderID, 'Message with attachment received!! (Vocal recognition not implemented yet)');
 	}
 }
-
-
 
 
 module.exports = {
