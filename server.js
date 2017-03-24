@@ -26,9 +26,12 @@ app.use(bodyParser.urlencoded({extended: false}));
 // parse application/json
 app.use(bodyParser.json());
 
+// For views display (html, css, ...)
+app.engine('html', require('ejs').renderFile);
+app.set('view engine', 'ejs');
+
 //Generic PORT allocation 
 app.listen(process.env.PORT || 5000, function () {
-
   console.log('Muse Server Started ...');
 });
 
@@ -59,6 +62,14 @@ app.get('/', function (req, res) {
   }
 })
 
+/*
+##########################################
+# Confidentiality Policy call : /policy  #
+#########################################
+*/
+.get('/policy', function (req, res) {
+  res.render('policy.html')
+})
 /*
 ##################################
 # Webhook  POST call : /webhook  #
@@ -248,7 +259,3 @@ function callSendAPI(messageData) {
     }
   });  
 }
-
-module.exports = {
-  callSendAPI,
-};
