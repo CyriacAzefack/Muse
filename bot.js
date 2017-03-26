@@ -84,7 +84,7 @@ function handleMessage(event) {
 				});
 			}
 
-			if(action.done) {
+			if(action && action.done === true) {
 				var song = res.getMemory('song');
 				var artist = res.getMemory('singer');
 				
