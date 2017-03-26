@@ -24,7 +24,7 @@ spotifyApi.searchTracks('track:Alright artist:Kendrick Lamar')
     });
 */
 
-function searchSongAndArtist(songName, artistName) {
+function searchSongAndArtist(songName, artistName, callback) {
 
     spotifyApi.searchTracks('track:'+songName+' artist:'+artistName+'')
         .then(function(data) {
@@ -33,11 +33,13 @@ function searchSongAndArtist(songName, artistName) {
             //Now let's build the
             track = data.body.tracks.items[0];
 
-            return {
+            var urls =  {
                 sample : track.preview_url,
                 song : track.external_urls.spotify,
                 image : track.album.images[0].url
-            }
+            };
+
+            callback(urls);
         }, function(err) {
             console.log('Something went wrong!', err);
         });

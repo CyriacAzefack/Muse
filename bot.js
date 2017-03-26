@@ -32,6 +32,8 @@ function handleMessage(event) {
 	const senderID = event.sender.id;
 	const messageText = event.message.text;
 	const messageAttachments = event.message.attachments;
+
+
 	
 
 	
@@ -84,22 +86,24 @@ function handleMessage(event) {
 				});
 			}
 
-			if(action && action.done === true) {
-				var song = res.getMemory('song').raw;
-				var artist = res.getMemory('singer').raw;
-				
-				var urls = spotify.searchSongAndArtist(song, artist);
+            var song = res.getMemory('song');
+            var artist = res.getMemory('singer');
 
-                const options = {
-                    messageText: null,
-                    title: 		song + " -- " + artist,
-                    mainUrl:	urls.song,
-                    imageUrl: 	urls.image,
-                    buttonType: 'web_url',
-                    buttonTitle:'Ecouter un extrait',
-                    buttonUrl: 	urls.sample,
-                };
-				facebook.replyButton(senderID, option);
+            if(song !== null & artist !== null) {
+
+				spotify.searchSongAndArtist(song.raw, artist.raw, function(urls) {
+                    const options = {
+                        messageText: null,
+                        title: 		song + " -- " + artist,
+                        mainUrl:	urls.song,
+                        imageUrl: 	urls.image,
+                        buttonType: 'web_url',
+                        buttonTitle:'Ecouter un extrait',
+                        buttonUrl: 	urls.sample,
+                    };
+                    facebook.replyButton(senderID, option);
+                });
+
 			}
 
 
