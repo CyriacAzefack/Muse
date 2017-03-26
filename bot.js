@@ -86,10 +86,10 @@ function handleMessage(event) {
 				});
 			}
 
-            var song = res.getMemory('song');
-            var artist = res.getMemory('singer');
+            let song = res.getMemory('song');
+            let artist = res.getMemory('singer');
 
-            if(song !== null & artist !== null) {
+            if((song !== null) && (artist !== null)) {
 
 				spotify.searchSongAndArtist(song.raw, artist.raw, function(urls) {
                     const options = {
@@ -101,7 +101,7 @@ function handleMessage(event) {
                         buttonTitle:'Ecouter un extrait',
                         buttonUrl: 	urls.sample,
                     };
-                    facebook.replyButton(senderID, option);
+                    facebook.replyButton(senderID, options);
                 });
 
 			}
