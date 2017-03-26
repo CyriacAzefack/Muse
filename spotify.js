@@ -42,3 +42,7 @@ function searchSongAndArtist(songName, artistName) {
         });
 
 }
+
+module.exports = {
+    searchSongAndArtist
+};
