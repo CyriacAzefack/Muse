@@ -8,5 +8,12 @@
 		"requestAccessToken": "f94c8c573831b41b1812b12a72ce618a",
 		"devAccessToken": "d333aec149db64185f53723f25dc8c9d",
 		"lang": "fr"
+	},
+
+	"spotify": {
+		"clientId" : "d79b7361b6e74f6d935c68d1cdb32502",
+		"clientSecret" : "e8248bd02998406d935d0d16e684592c",
+		"redirectUri" : "http://localhost:5000/callback"
 	}
+
 }

@@ -1,9 +1,9 @@
 /*jshint esversion: 6 */
 
 /*
-##########################
-# WELCOM TO MUSE Autobot #
-##########################
+###########################
+# WELCOME TO MUSE Autobot #
+###########################
 */
 
 
@@ -12,6 +12,8 @@
 var recastai = require('recastai');
 
 var facebook = require('./facebook.js');
+
+var spotify = require('./spotify.js');
 
 var config = require('./config.json');
 
@@ -41,20 +43,7 @@ function handleMessage(event) {
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
-			
-			/*
-			intents.forEach(function(intent) {
-				
-				if (intent.slug === 'greetings' && intent.confidence > 0.6) {
-	      			// Do your code
-	      			console.log("Reset Memory !!")
-	      			Conversation.resetMemory(config.recastai.requestAccessToken, senderID)
 
-	      			client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
-    			}
-			});
-
-			*/
 			if(messageText === "Reset") {
 				recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
 				facebook.replyMessage(senderID, "Conversation  remise à zero");
@@ -63,6 +52,7 @@ function handleMessage(event) {
 				const options = {
 					messageText: null,
 					title: 		'Kidogo -- Diamond Platnumz',
+					mainUrl: 	'www.google.com',
 					imageUrl: 	'http://www.kizobrax.net/wp-content/uploads/2016/06/diamond-platnumz-and-p-square.jpg',
 					buttonType: 'web_url',
 					buttonTitle:'Listen on Spotify',
@@ -93,6 +83,26 @@ function handleMessage(event) {
 					console.error(err);
 				});
 			}
+
+			if(action.done) {
+				var song = res.getMemory('song');
+				var artist = res.getMemory('singer');
+				
+				var urls = spotify.searchSongAndArtist(song, artist);
+
+                const options = {
+                    messageText: null,
+                    title: 		song + " -- " + artist,
+                    mainUrl:	urls.song,
+                    imageUrl: 	urls.image,
+                    buttonType: 'web_url',
+                    buttonTitle:'Ecouter un extrait',
+                    buttonUrl: 	urls.sample,
+                };
+				facebook.replyButton(senderID, option);
+			}
+
+
 		}).catch(function(err) {
 			console.error("RecastAI conversation failed!! Check the logs for more details");
 			console.error(err);

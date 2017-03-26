@@ -1,5 +1,5 @@
 {
-  "name": "Muse chatbot",
+  "name": "Muse-chatbot",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -12,6 +12,8 @@
   "dependencies": {
     "ejs": "^2.5.6",
     "express": "^4.15.2",
-    "recastai": "^2.3.0"
+    "recastai": "^2.3.0",
+    "spotify-web-api-node": "^2.3.6"
   }
+
 }
