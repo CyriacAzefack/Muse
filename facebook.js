@@ -87,7 +87,7 @@ function callSendAPI(messageData) {
       var recipientId = body.recipient_id;
       var messageId = body.message_id;
 
-      console.log("Successfully sent text message with id %s to recipient %s", 
+      console.log("Successfully sent message with id %s to recipient %s", 
         messageId, recipientId);
     } else if (response.statusCode != 200) {
       console.error("Unable to send message. the response status is %s. Check the error details below...", response.statusCode);
