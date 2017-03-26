@@ -128,9 +128,6 @@ function sendMessage(messageData) {
 	});
 }
 
-function replySongButton(songUrl, imageUrl){
-
-}
 
 module.exports = {
   replyMessage,

@@ -85,8 +85,8 @@ function handleMessage(event) {
 			}
 
 			if(action && action.done === true) {
-				var song = res.getMemory('song');
-				var artist = res.getMemory('singer');
+				var song = res.getMemory('song').raw;
+				var artist = res.getMemory('singer').raw;
 				
 				var urls = spotify.searchSongAndArtist(song, artist);
 
