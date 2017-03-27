@@ -9,16 +9,16 @@
 
 
 // Load required packages
-var recastai = require('recastai');
+let recastai = require('recastai');
 
-var facebook = require('./facebook.js');
+let facebook = require('./facebook.js');
 
-var spotify = require('./spotify.js');
+let spotify = require('./spotify.js');
 
-var config = require('./config.json');
+let config = require('./config.json');
 
 
-var client = new recastai.Client(config.recastai.requestAccessToken, config.recastai.lang);
+let client = new recastai.Client(config.recastai.requestAccessToken, config.recastai.lang);
 
 client.textConverse("Init").then(function(res) {});
 
@@ -40,10 +40,10 @@ function handleMessage(event) {
 	if (messageText) { //Check if message is not empty
 
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
-			const reply = res.reply; 		//First reply of the bot
+			//const reply = res.reply; 		//First reply of the bot
 			const replies = res.replies;	//All the bot replies
 			const action = res.action; 		// Get the current action
-			const intents = res.intents;
+			//const intents = res.intents;
 
 
 			if(messageText === "Reset") {
@@ -66,6 +66,28 @@ function handleMessage(event) {
 
 			else {
 
+				const regex = new RegExp('\".*\"');
+
+				if (regex.test(messageText)) { //if the message contains
+
+					let value = messageText.match(new RegExp(regex))[0];
+
+					//remove double quotes
+					value = value.replace(/['"]+/g, '');
+
+
+					if (action.slug === "order-music" ) {
+						recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+							{ song: { value: value } });
+					}
+					else if (action.slug === "order-artist" ) {
+						recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+							{ singer: { value: value } });
+					}
+
+				}
+
+
 				//Promise : Asynchronous manager
 				let promise = Promise.resolve();
 				replies.forEach(function(rep) {
@@ -86,26 +108,29 @@ function handleMessage(event) {
 				});
 			}
 
-            let song = res.getMemory('song');
-            let artist = res.getMemory('singer');
+			if (action.slug === "order-artist" && action.done) {
+                let song = res.getMemory('song');
+                let artist = res.getMemory('singer');
 
-            if((song !== null) && (artist !== null)) {
+                if ((song !== null) && (artist !== null) && (action) && (action.done)) {
 
-				spotify.searchSongAndArtist(song.raw, artist.raw, function(urls) {
-                    const options = {
-                        messageText: null,
-                        title: 		song + " -- " + artist,
-                        mainUrl:	urls.song,
-                        imageUrl: 	urls.image,
-                        buttonType: 'web_url',
-                        buttonTitle:'Ecouter un extrait',
-                        buttonUrl: 	urls.sample,
-                    };
-                    facebook.replyButton(senderID, options);
-                });
+                    song = song.raw;
+                    artist = artist.raw;
+                    spotify.searchSongAndArtist(song, artist, function (urls) {
+                        const options = {
+                            messageText: null,
+                            title: song.raw + " -- " + artist,
+                            mainUrl: urls.song,
+                            imageUrl: urls.image,
+                            buttonType: 'web_url',
+                            buttonTitle: 'Ecouter un extrait',
+                            buttonUrl: urls.sample,
+                        };
+                        facebook.replyButton(senderID, options);
+                    });
 
-			}
-
+                }
+            }
 
 		}).catch(function(err) {
 			console.error("RecastAI conversation failed!! Check the logs for more details");
