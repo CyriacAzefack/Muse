@@ -60,6 +60,7 @@ function handleMessage(event) {
                 var singer = res.getMemory('singer');
                 if(singer != null) {singer = singer.value;}
 
+
                 if (action.slug === "order-music") {
 
                     recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
@@ -165,6 +166,9 @@ function handleMessage(event) {
                 console.error("RecastAI conversation failed!! Check the logs for more details");
                 console.error(err);
             });
+        }).catch(function (err) {
+            console.error("Check Intent ont RecastAI conversation failed!! Check the logs for more details");
+            console.error(err);
         });
 	}
 
