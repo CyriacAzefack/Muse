@@ -39,6 +39,37 @@ function handleMessage(event) {
 	
 	if (messageText) { //Check if message is not empty
 
+        // We check the intent of the user message and set the memory accordingly
+        client.textConverse(messageText).then(function(res) {
+            const action = res.action;
+
+            const regex = new RegExp('\".*\"');
+
+            if (regex.test(messageText)) { //if the message contains double quotes
+
+                let value = messageText.match(new RegExp(regex))[0];
+
+                //remove double quotes
+                value = value.replace(/['"]+/g, '');
+
+
+                if (action.slug === "order-music" ) {
+                    recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+                        { song: { value: value } });
+                }
+                else if (action.slug === "order-artist" ) {
+                    recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+                        { singer: { value: value } });
+                }
+
+            }
+            else if (action.slug === "greetings") {
+                recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+            }
+
+        });
+
+        //Converese with the bot with the right status of the memory
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			//const reply = res.reply; 		//First reply of the bot
 			const replies = res.replies;	//All the bot replies
@@ -66,26 +97,7 @@ function handleMessage(event) {
 
 			else {
 
-				const regex = new RegExp('\".*\"');
 
-				if (regex.test(messageText)) { //if the message contains
-
-					let value = messageText.match(new RegExp(regex))[0];
-
-					//remove double quotes
-					value = value.replace(/['"]+/g, '');
-
-
-					if (action.slug === "order-music" ) {
-						recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-							{ song: { value: value } });
-					}
-					else if (action.slug === "order-artist" ) {
-						recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-							{ singer: { value: value } });
-					}
-
-				}
 
 
 				//Promise : Asynchronous manager
