@@ -40,7 +40,7 @@ function handleMessage(event) {
 	if (messageText) { //Check if message is not empty
 
         // We check the intent of the user message and set the memory accordingly
-        client.textConverse(messageText).then(function(res) {
+        client.textConverse(messageText, {conversationToken: senderID}).then(function (res) {
             const action = res.action;
 
             const regex = new RegExp('\".*\"');
@@ -52,14 +52,32 @@ function handleMessage(event) {
                 //remove double quotes
                 value = value.replace(/['"]+/g, '');
 
+                var memory = recastai.Conversation.memory();
+
+                var song = res.getMemory('song');
+                if(song != null) {song = song.value;}
+
+                var singer = res.getMemory('singer');
+                if(singer != null) {singer = singer.value;}
 
                 if (action.slug === "order-music") {
+
                     recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-                        {song: {value: value}});
+                        {song:
+                            {value: value},
+                        singer:
+                            {value: singer}
+                        }
+                    );
                 }
                 else if (action.slug === "order-artist") {
                     recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-                        {singer: {value: value}});
+                        {song:
+                            {value: song},
+                        singer:
+                            {value: value}
+                        }
+                    );
                 }
 
             }
