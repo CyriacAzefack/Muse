@@ -52,7 +52,7 @@ function handleMessage(event) {
                 //remove double quotes
                 value = value.replace(/['"]+/g, '');
 
-                var memory = recastai.Conversation.memory();
+
 
                 var song = res.getMemory('song');
                 if(song != null) {song = song.value;}
