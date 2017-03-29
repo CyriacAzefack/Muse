@@ -24,7 +24,7 @@ spotifyApi.searchTracks('track:Alright artist:Kendrick Lamar')
     });
 */
 
-function searchSongAndArtist(songName, callback) {
+function searchSong(songName, callback) {
 
     spotifyApi.searchTracks('track:'+songName)
         .then(function(data) {
@@ -47,5 +47,5 @@ function searchSongAndArtist(songName, callback) {
 }
 
 module.exports = {
-    searchSongAndArtist
+    searchSong
 };

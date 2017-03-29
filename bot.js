@@ -90,10 +90,10 @@ function handleMessage(event) {
 
             if(song !== null) {
 
-				spotify.searchSongAndArtist(song.raw, function(urls) {
+				spotify.searchSong(song.raw, function(urls) {
                     const options = {
                         messageText: null,
-                        title: 		song + " -- " + artist,
+                        title: 		"Titre : "+ song,
                         mainUrl:	urls.song,
                         imageUrl: 	urls.image,
                         buttonType: 'web_url',
