@@ -53,37 +53,39 @@ function handleMessage(event) {
                 value = value.replace(/['"]+/g, '');
 
 
-
                 var song = res.getMemory('song');
-                if(song != null) {song = song.value;}
+                if (song != null) {
+                    song = song.value;
+                }
 
                 var singer = res.getMemory('singer');
-                if(singer != null) {singer = singer.value;}
-
-
-                if (action.slug === "order-music") {
-
-                    recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-                        {song:
-                            {value: value},
-                        singer:
-                            {value: singer}
-                        }
-                    );
-                }
-                else if (action.slug === "order-artist") {
-                    recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
-                        {song:
-                            {value: song},
-                        singer:
-                            {value: value}
-                        }
-                    );
+                if (singer != null) {
+                    singer = singer.value;
                 }
 
-            }
-            else if (action.slug === "greetings") {
-                recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+                if (action) { //If an action is detected
+                    if (action.slug === "order-music") {
+
+                        recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+                            {
+                                song: {value: value},
+                                singer: {value: singer}
+                            }
+                        );
+                    }
+                    else if (action.slug === "order-artist") {
+                        recastai.Conversation.setMemory(config.recastai.requestAccessToken, senderID,
+                            {
+                                song: {value: song},
+                                singer: {value: value}
+                            }
+                        );
+                    }
+
+                }
+                else if (action.slug === "greetings") {
+                    recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+                }
             }
 
 
