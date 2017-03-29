@@ -33,13 +33,20 @@ function searchSong(songName, callback) {
             //Now let's build the
             track = data.body.tracks.items[0];
 
-            var urls =  {
-                sample : track.preview_url,
-                song : track.external_urls.spotify,
-                image : track.album.images[0].url
-            };
+            var results = null;
+            if(track) {
+                results = {
+                    songName: track.name,
+                    sampleUrl: track.preview_url,
+                    songUrl: track.external_urls.spotify,
+                    imageUrl: track.album.images[0].url
+                };
 
-            callback(urls);
+            }
+
+
+            callback(results);
+
         }, function(err) {
             console.log('Something went wrong!', err);
         });

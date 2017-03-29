@@ -90,17 +90,25 @@ function handleMessage(event) {
 
             if(song !== null) {
 
-				spotify.searchSong(song.raw, function(urls) {
-                    const options = {
-                        messageText: null,
-                        title: 		"Titre : "+ song.raw,
-                        mainUrl:	urls.song,
-                        imageUrl: 	urls.image,
-                        buttonType: 'web_url',
-                        buttonTitle:'Ecouter un extrait',
-                        buttonUrl: 	urls.sample,
-                    };
-                    facebook.replyButton(senderID, options);
+				spotify.searchSong(song.raw, function(results) {
+
+				    if (results) {
+                        const options = {
+                            messageText: null,
+                            title: results.songName,
+                            mainUrl: results.songUrl,
+                            imageUrl: results.imageUrl,
+                            buttonType: 'web_url',
+                            buttonTitle: 'Ecouter un extrait',
+                            buttonUrl: results.sampleUrl,
+                        };
+                        facebook.replyButton(senderID, options);
+                    }
+                    else {
+				        facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+				        let msg = "Je suis désolé mais le titre '"+song.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+				        facebook.replyMessage(senderID, msg);
+                    }
                 });
 
 			}
