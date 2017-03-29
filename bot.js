@@ -93,7 +93,7 @@ function handleMessage(event) {
 				spotify.searchSong(song.raw, function(urls) {
                     const options = {
                         messageText: null,
-                        title: 		"Titre : "+ song,
+                        title: 		"Titre : "+ song.raw,
                         mainUrl:	urls.song,
                         imageUrl: 	urls.image,
                         buttonType: 'web_url',
