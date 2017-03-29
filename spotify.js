@@ -24,11 +24,11 @@ spotifyApi.searchTracks('track:Alright artist:Kendrick Lamar')
     });
 */
 
-function searchSongAndArtist(songName, artistName, callback) {
+function searchSongAndArtist(songName, callback) {
 
-    spotifyApi.searchTracks('track:'+songName+' artist:'+artistName+'')
+    spotifyApi.searchTracks('track:'+songName)
         .then(function(data) {
-            console.log('Search tracks by "'+songName+'" in the track name and "'+artistName+'" in the artist name');
+            console.log('Search tracks by "'+songName+'" in the track name');
 
             //Now let's build the
             track = data.body.tracks.items[0];

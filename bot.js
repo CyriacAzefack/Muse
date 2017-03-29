@@ -87,11 +87,10 @@ function handleMessage(event) {
 			}
 
             let song = res.getMemory('song');
-            let artist = res.getMemory('singer');
 
-            if((song !== null) && (artist !== null)) {
+            if(song !== null) {
 
-				spotify.searchSongAndArtist(song.raw, artist.raw, function(urls) {
+				spotify.searchSongAndArtist(song.raw, function(urls) {
                     const options = {
                         messageText: null,
                         title: 		song + " -- " + artist,
