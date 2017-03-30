@@ -109,6 +109,9 @@ function handleMessage(event) {
 				        let msg = "Je suis désolé mais le titre '"+song.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
 				        facebook.replyMessage(senderID, msg);
                     }
+
+                    //We reset the conversation
+                    recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
                 });
 
 			}
