@@ -69,7 +69,23 @@ function replyButton(recipientID, option) {
 	callSendAPI(messageData);
 }
 
+function replyAudio(recipientID, audioUrl) {
+    const messageData = {
+        recipient: {
+            id: recipientID,
+        },
+        message: {
+            attachment: {
+                type: 'audio',
+                payload: {
+                	url: audioUrl,
+                },
+            },
+        },
+    };
 
+    callSendAPI(messageData);
+}
 /*
 ###############
 # callSendAPI #
@@ -130,6 +146,7 @@ function sendMessage(messageData) {
 
 
 module.exports = {
-  replyMessage,
-  replyButton,
+	replyMessage,
+	replyButton,
+	replyAudio
 };

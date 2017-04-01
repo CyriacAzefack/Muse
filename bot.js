@@ -101,8 +101,10 @@ function handleMessage(event) {
                             buttonType: 'web_url',
                             buttonTitle: 'Ecouter un extrait',
                             buttonUrl: results.sampleUrl,
+
                         };
                         facebook.replyButton(senderID, options);
+                        facebook.replyAudio(senderID, results.sampleUrl)
                     }
                     else {
 				        facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
