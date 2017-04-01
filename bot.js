@@ -88,7 +88,7 @@ function handleMessage(event) {
 
             let song = res.getMemory('song');
 
-            if(song !== null) {
+            if(song !== null & action) {
 
 				spotify.searchSong(song.raw, function(results) {
 
