@@ -14,15 +14,34 @@ var spotifyApi = new spotifyWebApi({
 
 
 // Search tracks whose artist's name contains 'Kendrick Lamar', and track name contains 'Alright'
-/*
-spotifyApi.searchTracks('track:Alright artist:Kendrick Lamar')
-    .then(function(data) {
-        console.log('Search tracks by "Alright" in the track name and "Kendrick Lamar" in the artist name');
-        console.log(data.body.tracks.items);
-    }, function(err) {
-        console.log('Something went wrong!', err);
-    });
-*/
+
+function searchSongAndArtist(songName, artistName, callback) {
+
+    spotifyApi.searchTracks('track:'+songName+' artist:'+artistName)
+        .then(function(data) {
+            console.log('Search tracks by "'+songName+'" in the track name and "'+artistName+'" in the artist name');
+
+            //Now let's build the results
+            track = data.body.tracks.items[0];
+
+            var results = null;
+            if(track) {
+                results = {
+                    songName: track.name,
+                    sampleUrl: track.preview_url,
+                    songUrl: track.external_urls.spotify,
+                    imageUrl: track.album.images[0].url
+                };
+
+            }
+
+            callback(results);
+        }, function(err) {
+            console.log('Something went wrong!', err);
+        });
+}
+
+
 
 function searchSong(songName, callback) {
 
@@ -30,7 +49,7 @@ function searchSong(songName, callback) {
         .then(function(data) {
             console.log('Search tracks by "'+songName+'" in the track name');
 
-            //Now let's build the
+            //Now let's build the results
             track = data.body.tracks.items[0];
 
             var results = null;
@@ -54,5 +73,6 @@ function searchSong(songName, callback) {
 }
 
 module.exports = {
-    searchSong
+    searchSong,
+    searchSongAndArtist
 };

@@ -90,34 +90,63 @@ function handleMessage(event) {
 
             if(song !== null) {
 
-				spotify.searchSong(song.raw, function(results) {
+                let singer = res.getMemory('singer');
 
-				    if (results) {
-                        const options = {
-                            messageText: null,
-                            title: results.songName,
-                            mainUrl: results.songUrl,
-                            imageUrl: results.imageUrl,
-                            buttonType: 'web_url',
-                            buttonTitle: 'Ecouter un extrait',
-                            buttonUrl: results.sampleUrl,
+                if (singer === null) {
+                    spotify.searchSong(song.raw, function(results) {
+
+                        if (results) {
+                            const options = {
+                                messageText: null,
+                                title: results.songName,
+                                mainUrl: results.songUrl,
+                                imageUrl: results.imageUrl,
+                                buttonType: 'web_url',
+                                buttonTitle: 'Ecouter un extrait',
+                                buttonUrl: results.sampleUrl,
 
 
+                            };
+                            facebook.replyButton(senderID, options);
+                            facebook.replyAudio(senderID, results.sampleUrl)
+                        }
+                        else {
+                            facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+                            let msg = "Je suis désolé mais le titre '" + song.raw + "' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+                            facebook.replyMessage(senderID, msg);
+                        }
+                    });
+                }
+
+                else {
+                    spotify.searchSongAndArtist(song.raw, singer.raw,  function(results) {
+
+                        if (results) {
+                            const options = {
+                                messageText: null,
+                                title: results.songName,
+                                mainUrl: results.songUrl,
+                                imageUrl: results.imageUrl,
+                                buttonType: 'web_url',
+                                buttonTitle: 'Ecouter un extrait',
+                                buttonUrl: results.sampleUrl,
 
 
-                        };
-                        facebook.replyButton(senderID, options);
-                        facebook.replyAudio(senderID, results.sampleUrl)
-                    }
-                    else {
-				        facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
-				        let msg = "Je suis désolé mais le titre '"+song.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
-				        facebook.replyMessage(senderID, msg);
-                    }
+                            };
+                            facebook.replyButton(senderID, options);
+                            facebook.replyAudio(senderID, results.sampleUrl)
+                        }
+                        else {
+                            facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+                            let msg = "Je suis désolé mais le titre '" + song.raw + "' du chanteur '"+singer.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+                            facebook.replyMessage(senderID, msg);
+                        }
+                    });
+                }
 
-                    //We reset the conversation
-                    recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
-                });
+                //We reset the conversation
+                recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+
 
 			}
 
