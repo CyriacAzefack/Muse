@@ -92,7 +92,7 @@ function handleMessage(event) {
 
                 let singer = res.getMemory('singer');
 
-                if (singer.raw === undefined) {
+                if (singer === null) {
                     spotify.searchSong(song.raw, function(results) {
 
                         if (results) {
