@@ -45,7 +45,7 @@ function searchSongAndArtist(songName, artistName, callback) {
 
 function searchSong(songName, callback) {
 
-    spotifyApi.searchTracks('track:'+songName)
+    spotifyApi.searchTracks(songName)
         .then(function(data) {
             console.log('Search tracks by "'+songName+'" in the track name');
 
