@@ -158,7 +158,7 @@ function handleMessage(event) {
                             mainUrl: results.songUrl,
                             imageUrl: results.imageUrl,
                             buttonType: 'web_url',
-                            buttonTitle: 'Ecouter un extrait',
+                            buttonTitle: 'Télécharger',
                             buttonUrl: results.sampleUrl,
 
 
