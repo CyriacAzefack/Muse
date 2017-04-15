@@ -93,7 +93,7 @@ function handleMessage(event) {
             if(song !== null) {
 
                 let singer = res.getMemory('singer');
-
+                /*
                 if (singer === null) {
                     spotify.searchSong(song.raw, function(results) {
 
@@ -145,7 +145,7 @@ function handleMessage(event) {
                         }
                     });
                 }
-
+                */
                 //YOUTUBE SEARCH
 				var searchString = song.raw;
                 searchString += (singer === null) ? '' : singer.raw;

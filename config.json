@@ -14,6 +14,10 @@
 		"clientId" : "d79b7361b6e74f6d935c68d1cdb32502",
 		"clientSecret" : "e8248bd02998406d935d0d16e684592c",
 		"redirectUri" : "http://localhost:5000/callback"
+	},
+
+	"youtube" : {
+		"apiKey" : "AIzaSyBQPEQDKJfrK7b8IbaGnav4TYBn3J4ctrU"
 	}
 
 }

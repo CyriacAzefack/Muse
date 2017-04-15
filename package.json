@@ -14,7 +14,8 @@
     "express": "^4.15.2",
     "recastai": "^2.3.0",
     "spotify-web-api-node": "^2.3.6",
-    "youtube-dl": "^1.11.1"
+    "youtube-dl": "^1.11.1",
+    "youtube-simple-search": "^0.1.1"
   },
 
   "repository": {
