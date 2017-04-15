@@ -49,13 +49,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('Download started');
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
-        console.log('url: ' + info.url);
 
         let results = null;
 
         results = {
             songName: info.title,
-            sampleUrl: info.url,
+            sampleUrl: info.formats[0].url,
             songUrl: youtubeUrl,
             imageUrl: info.thumbnails[0].url
         };
@@ -64,11 +63,11 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     });
 }
 /*
-searchSong("Papoutai", function(results) {
+searchSong("onynye psquare", function(results) {
     console.log(results);
 });
-*/
 
+*/
 
 module.exports = {
     searchSong,
