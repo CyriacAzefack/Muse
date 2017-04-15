@@ -1,21 +1,21 @@
 /**
  * Created by I327247 on 15/04/2017.
  */
-var fs = require('fs');
-var youtubedl = require('youtube-dl');
+const fs = require('fs');
+const youtubedl = require('youtube-dl');
 
 function searchSong (songName, artistName, callback) {
 
-    var url = 'https://www.youtube.com/watch?v=QRRPt0ysfyI';
+    let url = 'https://www.youtube.com/watch?v=QRRPt0ysfyI';
 
     getYoutubeAudioURL(url, callback);
 }
 
 function getYoutubeAudioURL(youtubeUrl, callback) {
 
-    var options = ['--format=bestaudio/best', '--extract-audio']
+    const options = ['--format=bestaudio/best', '--extract-audio']
 
-    var stream = youtubedl(url, options);
+    const stream = youtubedl(youtubeUrl, options);
 // Will be called when the download starts.
 
 
@@ -27,14 +27,14 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('size: ' + info.size);
         console.log('url: ' + info.url);
 
-        var results = null;
+        let results = null;
 
         results = {
             songName: info.title,
             sampleUrl: info.url,
-            songUrl: url,
+            songUrl: youtubeUrl,
             imageUrl: info.thumbnails[0].url
-        }
+        };
 
         callback(results)
     });
