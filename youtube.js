@@ -30,6 +30,7 @@ function searchSong (searchString, callback) {
             }
         });
         var url = urlRoot + videoID
+        console.log(url);
         getYoutubeAudioURL(url, callback);
     }
 
@@ -37,13 +38,12 @@ function searchSong (searchString, callback) {
 
 function getYoutubeAudioURL(youtubeUrl, callback) {
 
-    const options = ['--format=bestaudio/best', '--extract-audio']
+    const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download']
 
-    const stream = youtubedl(youtubeUrl, options);
-// Will be called when the download starts.
-
-
-    stream.on('info', function(info) {
+    // Optional arguments passed to youtube-dl.
+    //var options = ['--username=user', '--password=hunter2'];
+    youtubedl.getInfo(youtubeUrl, function(err, info) {
+        if (err) throw err;
 
         //console.log(info)
         console.log('Download started');
@@ -63,6 +63,10 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         callback(results)
     });
 }
+
+searchSong("Papoutai", function(results) {
+    console.log(results);
+});
 
 
 
