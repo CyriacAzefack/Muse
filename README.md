@@ -1,3 +1,3 @@
 ## Description
 
-Application based on the Spotify API which generate new playlists based on what  you like
+Facebook chatbot that stream you music directly on messenger

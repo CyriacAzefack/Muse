@@ -15,6 +15,8 @@ var facebook = require('./facebook.js');
 
 var spotify = require('./spotify.js');
 
+var youtube = require('./youtube.js');
+
 var config = require('./config.json');
 
 
@@ -143,6 +145,33 @@ function handleMessage(event) {
                         }
                     });
                 }
+
+                //YOUTUBE SEARCH
+				var searchString = song.raw;
+                searchString += (singer === null) ? '' : singer.raw;
+
+                youtube.getYoutubeAudioURL(searchString, function(results) {
+                    if (results) {
+                        const options = {
+                            messageText: null,
+                            title: results.songName,
+                            mainUrl: results.songUrl,
+                            imageUrl: results.imageUrl,
+                            buttonType: 'web_url',
+                            buttonTitle: 'Ecouter un extrait',
+                            buttonUrl: results.sampleUrl,
+
+
+                        };
+                        facebook.replyButton(senderID, options);
+                        facebook.replyAudio(senderID, results.sampleUrl)
+                    }
+                    else {
+                        facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+                        let msg = "Je suis désolé mais le titre '" + song.raw + "' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+                        facebook.replyMessage(senderID, msg);
+                    }
+				});
 
                 //We reset the conversation
                 recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
