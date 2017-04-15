@@ -150,7 +150,7 @@ function handleMessage(event) {
 				var searchString = song.raw;
                 searchString += (singer === null) ? '' : singer.raw;
 
-                youtube.getYoutubeAudioURL(searchString, function(results) {
+                youtube.searchSong(searchString, function(results) {
                     if (results) {
                         const options = {
                             messageText: null,

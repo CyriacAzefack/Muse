@@ -4,7 +4,7 @@
 const fs = require('fs');
 const youtubedl = require('youtube-dl');
 
-function searchSong (songName, artistName, callback) {
+function searchSong (searchString, callback) {
 
     let url = 'https://www.youtube.com/watch?v=QRRPt0ysfyI';
 
@@ -51,5 +51,6 @@ getYoutubeAudioURL(url, function(results) {
 
 
 module.exports = {
+    searchSong,
     getYoutubeAudioURL,
 };
