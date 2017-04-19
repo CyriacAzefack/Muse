@@ -13,7 +13,7 @@ function searchSong (searchString, callback) {
     yss({
         key: config.youtube.apiKey,
         query: searchString,
-        maxResults: 1
+        maxResults: 10
         },
 
         getVideoUrl
@@ -21,18 +21,19 @@ function searchSong (searchString, callback) {
 
     function getVideoUrl(results) {
         //console.log(result);
-        let videoID = undefined;
-        results.forEach(function(result) {
 
+        for (let result of results) {
+
+            console.log(result);
             if(result.id.kind == "youtube#video") {
-                videoID = result.id.videoId;
+                var url = urlRoot + result.id.videoId;
+                getYoutubeAudioURL(url, callback);
 
+                break;
             }
-        });
+        }
 
-        var url = urlRoot + videoID
-        console.log(url);
-        getYoutubeAudioURL(url, callback);
+
     }
 
 }
@@ -63,12 +64,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         callback(results)
     });
 }
-/*
-searchSong("onynye psquare", function(results) {
+
+searchSong("monsieur sainte nitouche ina mojo", function(results) {
     console.log(results);
 });
 
-*/
+
 
 module.exports = {
     searchSong,
