@@ -64,11 +64,11 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         callback(results)
     });
 }
-/*
+
 searchSong("monsieur sainte nitouche ina mojo", function(results) {
     console.log(results);
 });
-*/
+
 
 
 module.exports = {
