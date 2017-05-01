@@ -49,7 +49,7 @@ function handleMessage(event) {
 
 
 
-			let replies
+
 
 			//Promise : Asynchronous manager
 			let promise = Promise.resolve();
