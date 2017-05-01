@@ -43,7 +43,7 @@ function handleMessage(event) {
 
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
-			let replies = [];	//All the bot replies
+			let replies = res.replies;	//All the bot replies
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
