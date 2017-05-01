@@ -48,55 +48,92 @@ function handleMessage(event) {
 			const intents = res.intents;
 
 
-			if(messageText === "Reset") {
-				recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
-				facebook.replyMessage(senderID, "Conversation  remise à zero");
-			}
-			else if(messageText === "Test button") {
-				const options = {
-					messageText: null,
-					title: 		'Kidogo -- Diamond Platnumz',
-					mainUrl: 	'www.google.com',
-					imageUrl: 	'http://www.kizobrax.net/wp-content/uploads/2016/06/diamond-platnumz-and-p-square.jpg',
-					buttonType: 'web_url',
-					buttonTitle:'Listen on Spotify',
-					buttonUrl: 	'https://play.spotify.com/album/3XBqlfR8vyCsbj2n9Ig6nH',
-				};
 
-				facebook.replyButton(senderID, options);
-			}
 
-			else {
-
-				//Promise : Asynchronous manager
-				let promise = Promise.resolve();
-				replies.forEach(function(rep) {
-					promise = promise.then(function() {
-						facebook.replyMessage(senderID, rep).catch(function(err) {
-							console.error("Failed sending : %s", rep);
-							console.error(err);
-						});
-
+			//Promise : Asynchronous manager
+			let promise = Promise.resolve();
+			replies.forEach(function(rep) {
+				promise = promise.then(function() {
+					facebook.replyMessage(senderID, rep).catch(function(err) {
+						console.error("Failed sending : %s", rep);
+						console.error(err);
 					});
+
 				});
+			});
 
-				promise.then(function() {
-					console.log("Messages sending...");
-				}). catch(function(err) {
-					console.error("Message to '%s' Failed!! Check the logs for more details", senderID);
-					console.error(err);
-				});
-			}
+			promise.then(function() {
+				console.log("Messages sending...");
+			}). catch(function(err) {
+				console.error("Message to '%s' Failed!! Check the logs for more details", senderID);
+				console.error(err);
+			});
 
-            let song = res.getMemory('song');
+			let action_slug = (action === null)? null: action.slug;
+			if (action_slug === 'order_music') {
+                let song = res.getMemory('song');
 
-            if(song !== null) {
+                if (song !== null) {
 
-                let singer = res.getMemory('singer');
-                /*
-                if (singer === null) {
-                    spotify.searchSong(song.raw, function(results) {
+                    let singer = res.getMemory('singer');
+					/*
+					 if (singer === null) {
+					 spotify.searchSong(song.raw, function(results) {
 
+					 if (results) {
+					 const options = {
+					 messageText: null,
+					 title: results.songName,
+					 mainUrl: results.songUrl,
+					 imageUrl: results.imageUrl,
+					 buttonType: 'web_url',
+					 buttonTitle: 'Ecouter un extrait',
+					 buttonUrl: results.sampleUrl,
+
+
+					 };
+					 facebook.replyButton(senderID, options);
+					 facebook.replyAudio(senderID, results.sampleUrl)
+					 }
+					 else {
+					 facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+					 let msg = "Je suis désolé mais le titre '" + song.raw + "' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+					 facebook.replyMessage(senderID, msg);
+					 }
+					 });
+					 }
+
+					 else {
+					 spotify.searchSongAndArtist(song.raw, singer.raw,  function(results) {
+
+					 if (results) {
+					 const options = {
+					 messageText: null,
+					 title: results.songName,
+					 mainUrl: results.songUrl,
+					 imageUrl: results.imageUrl,
+					 buttonType: 'web_url',
+					 buttonTitle: 'Ecouter un extrait',
+					 buttonUrl: results.sampleUrl,
+
+
+					 };
+					 facebook.replyButton(senderID, options);
+					 facebook.replyAudio(senderID, results.sampleUrl)
+					 }
+					 else {
+					 facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+					 let msg = "Je suis désolé mais le titre '" + song.raw + "' du chanteur '"+singer.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+					 facebook.replyMessage(senderID, msg);
+					 }
+					 });
+					 }
+					 */
+                    //YOUTUBE SEARCH
+                    var searchString = song.raw;
+                    searchString += (singer === null) ? '' : singer.raw;
+
+                    youtube.searchSong(searchString, function (results) {
                         if (results) {
                             const options = {
                                 messageText: null,
@@ -104,7 +141,7 @@ function handleMessage(event) {
                                 mainUrl: results.songUrl,
                                 imageUrl: results.imageUrl,
                                 buttonType: 'web_url',
-                                buttonTitle: 'Ecouter un extrait',
+                                buttonTitle: 'Télécharger',
                                 buttonUrl: results.sampleUrl,
 
 
@@ -118,66 +155,13 @@ function handleMessage(event) {
                             facebook.replyMessage(senderID, msg);
                         }
                     });
+
+                    //We reset the conversation
+                    recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
+
+
                 }
-
-                else {
-                    spotify.searchSongAndArtist(song.raw, singer.raw,  function(results) {
-
-                        if (results) {
-                            const options = {
-                                messageText: null,
-                                title: results.songName,
-                                mainUrl: results.songUrl,
-                                imageUrl: results.imageUrl,
-                                buttonType: 'web_url',
-                                buttonTitle: 'Ecouter un extrait',
-                                buttonUrl: results.sampleUrl,
-
-
-                            };
-                            facebook.replyButton(senderID, options);
-                            facebook.replyAudio(senderID, results.sampleUrl)
-                        }
-                        else {
-                            facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
-                            let msg = "Je suis désolé mais le titre '" + song.raw + "' du chanteur '"+singer.raw+"' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
-                            facebook.replyMessage(senderID, msg);
-                        }
-                    });
-                }
-                */
-                //YOUTUBE SEARCH
-				var searchString = song.raw;
-                searchString += (singer === null) ? '' : singer.raw;
-
-                youtube.searchSong(searchString, function(results) {
-                    if (results) {
-                        const options = {
-                            messageText: null,
-                            title: results.songName,
-                            mainUrl: results.songUrl,
-                            imageUrl: results.imageUrl,
-                            buttonType: 'web_url',
-                            buttonTitle: 'Télécharger',
-                            buttonUrl: results.sampleUrl,
-
-
-                        };
-                        facebook.replyButton(senderID, options);
-                        facebook.replyAudio(senderID, results.sampleUrl)
-                    }
-                    else {
-                        facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
-                        let msg = "Je suis désolé mais le titre '" + song.raw + "' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
-                        facebook.replyMessage(senderID, msg);
-                    }
-				});
-
-                //We reset the conversation
-                recastai.Conversation.resetMemory(config.recastai.requestAccessToken, senderID);
-
-
-			}
+            }
 
 
 		}).catch(function(err) {
