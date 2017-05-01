@@ -48,7 +48,7 @@ function handleMessage(event) {
 			const intents = res.intents;
 
 
-
+            console.log(replies)
 
 
 			//Promise : Asynchronous manager
