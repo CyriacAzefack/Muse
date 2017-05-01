@@ -43,20 +43,21 @@ function handleMessage(event) {
 
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
-			const replies = res.replies;	//All the bot replies
+			let replies = [];	//All the bot replies
 			const action = res.action; 		// Get the current action
 			const intents = res.intents;
 
 
 
+			let replies
 
 			//Promise : Asynchronous manager
 			let promise = Promise.resolve();
-			replies.forEach(function(rep) {
-				promise = promise.then(function() {
-					facebook.replyMessage(senderID, rep).catch(function(err) {
-						console.error("Failed sending : %s", rep);
-						console.error(err);
+            promise = promise.then(function() {
+			    replies.forEach(function(rep) {
+				    facebook.replyMessage(senderID, rep).catch(function(err) {
+					    console.error("Failed sending : %s", rep);
+					    console.error(err);
 					});
 
 				});
