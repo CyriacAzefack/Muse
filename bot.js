@@ -71,6 +71,8 @@ function handleMessage(event) {
 			});
 
 			let action_slug = (action === null)? null: action.slug;
+
+			console.log('Action slug :' + action_slug);
 			if (action_slug === 'order_music') {
                 let song = res.getMemory('song');
 
