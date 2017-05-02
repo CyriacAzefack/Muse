@@ -51,7 +51,7 @@ function handleMessage(event) {
             console.log(replies)
 
 
-			//Promise : Asynchronous manager
+			//Promise : Asynchronous manager, replies to the bot
 			let promise = Promise.resolve();
             promise = promise.then(function() {
 			    replies.forEach(function(rep) {
