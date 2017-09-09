@@ -52,6 +52,7 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
+        console.log('ALL INFOS : ' + info);
         let results = null;
 
         results = {
@@ -65,10 +66,7 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     });
 }
 /*
-searchSong("monsieur sainte nitouche ina mojo", function(results) {
-    console.log(results);
-});
-*/
+
 
 
 module.exports = {
