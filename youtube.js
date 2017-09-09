@@ -47,12 +47,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     youtubedl.getInfo(youtubeUrl, function(err, info) {
         if (err) throw err;
 
-        //console.log(info)
+        console.log(info)
         console.log('Download started');
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
-        console.log('ALL INFOS : ' + info);
+
         let results = null;
 
         results = {
