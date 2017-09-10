@@ -58,8 +58,8 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 
         results = {
             songName: info.title,
-            sampleUrl: info.formats[0].url,
-            songUrl: songUrl+info.id,
+            sampleUrl: songUrl+info.id,
+            songUrl: youtubeUrl,
             imageUrl: info.thumbnails[0].url
         };
 
@@ -68,12 +68,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 }
 
 
-/*
+
 searchSong("ghetto benash", function(results) {
     console.log(results);
 });
 
-*/
+
 
 module.exports = {
     searchSong,
