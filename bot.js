@@ -143,7 +143,7 @@ function handleMessage(event) {
                                 mainUrl: results.songUrl,
                                 imageUrl: results.imageUrl,
                                 buttonType: 'web_url',
-                                buttonTitle: 'Télécharger',
+                                buttonTitle: 'Ouvrir dans youtube',
                                 buttonUrl: results.sampleUrl,
 
 

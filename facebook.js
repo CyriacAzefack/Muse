@@ -25,14 +25,6 @@ function replyMessage(recipientID, messageText) {
 			},
 		};
 
-		/*
-		sendMessage(messageData).then(function() {
-			resolve();
-		}).catch(function(err) {
-			reject(err);
-		});
-		*/
-
 		callSendAPI(messageData)
 	});
 }

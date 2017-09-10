@@ -58,8 +58,8 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 
         results = {
             songName: info.title,
-            sampleUrl: songUrl+info.id,
-            songUrl: youtubeUrl,
+            songUrl: songUrl+info.id,
+            sampleUrl: youtubeUrl,
             imageUrl: info.thumbnails[0].url
         };
 
