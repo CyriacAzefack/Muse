@@ -38,27 +38,28 @@ function searchSong (searchString, callback) {
 
 }
 
+
 function getYoutubeAudioURL(youtubeUrl, callback) {
 
-    const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download']
+    const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download', '--get-url']
 
     // Optional arguments passed to youtube-dl.
     //var options = ['--username=user', '--password=hunter2'];
-    youtubedl.getInfo(youtubeUrl, function(err, info) {
+    youtubedl.getInfo(youtubeUrl, options, function(err, info) {
         if (err) throw err;
 
-        console.log(info)
+        //console.log(info)
         console.log('Download started');
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
-
+        const songUrl =  "www.youtubeinmp3.com/fetch/?video=https://www.youtube.com/watch?v="
         let results = null;
 
         results = {
             songName: info.title,
             sampleUrl: info.formats[0].url,
-            songUrl: youtubeUrl,
+            songUrl: songUrl+info.id,
             imageUrl: info.thumbnails[0].url
         };
 
@@ -66,6 +67,11 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     });
 }
 
+
+
+searchSong("ghetto benash", function(results) {
+    console.log(results);
+});
 
 
 
