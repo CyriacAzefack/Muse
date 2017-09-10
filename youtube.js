@@ -45,7 +45,7 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 
     // Optional arguments passed to youtube-dl.
     //var options = ['--username=user', '--password=hunter2'];
-    youtubedl.getInfo(youtubeUrl, options, function(err, info) {
+    youtubedl.getInfo(youtubeUrl, function(err, info) {
         if (err) throw err;
 
         //console.log(info)
@@ -69,12 +69,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 }
 
 
-/*
-searchSong("ghetto benash", function(results) {
+
+searchSong("tantine keblack", function(results) {
     console.log(results);
 });
 
-*/
+
 
 module.exports = {
     searchSong,
