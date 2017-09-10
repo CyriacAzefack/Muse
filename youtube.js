@@ -68,12 +68,12 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 }
 
 
-
+/*
 searchSong("ghetto benash", function(results) {
     console.log(results);
 });
 
-
+*/
 
 module.exports = {
     searchSong,
