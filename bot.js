@@ -149,7 +149,7 @@ function handleMessage(event) {
 
                             };
                             facebook.replyButton(senderID, options);
-                            facebook.replyAudio(senderID, results.sampleUrl)
+                            facebook.replyAudio(senderID, results.streamUrl)
                         }
                         else {
                             facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
