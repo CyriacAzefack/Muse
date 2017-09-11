@@ -73,11 +73,11 @@ function handleMessage(event) {
 			let action_slug = (action === null)? null: action.slug;
 
 			if (action_slug === 'order-music') {
-                let song = res.getMemory('song');
+                let song = res.getMemory('song_title');
 
                 if (song !== null) {
 
-                    let singer = res.getMemory('singer');
+                    let singer = res.getMemory('song_artist');
 					/*
 					 if (singer === null) {
 					 spotify.searchSong(song.raw, function(results) {
