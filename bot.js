@@ -41,6 +41,7 @@ function handleMessage(event) {
 
 	if (messageText) { //Check if message is not empty
 
+		console.log("User Message : " + messageTexte)
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
 			let replies = res.replies;	//All the bot replies
@@ -48,7 +49,7 @@ function handleMessage(event) {
 			const intents = res.intents;
 
 
-            console.log(replies)
+            console.log(res)
 
 
 			//Promise : Asynchronous manager, replies to the bot
