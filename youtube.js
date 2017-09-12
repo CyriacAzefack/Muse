@@ -53,7 +53,7 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
-        const songUrl =  "www.youtubeinmp3.com/fetch/?video=https://www.youtube.com/watch?v="
+        const songUrl =  "//www.youtubeinmp3.com/fetch/?video=https://www.youtube.com/watch?v="
         let results = null;
 
         results = {
