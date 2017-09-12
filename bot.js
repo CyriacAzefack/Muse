@@ -30,7 +30,7 @@ console.log(client);
 
 function handleWelcomeMessage(event) {
     const senderID = event.sender.id;
-    let msg = "Bienvenue sur Muse4u! Mon seul et unique but est : d'assouvir toutes tes envies, musicalement parlant bien sur ;)! \u000AUne chose à faire, tape le titre de la musique que tu veux écouter et laisse moi m'occuper du reste! Simple & Efficace!! \u000AAmuse toi bien :)"
+    let msg = "Bienvenue sur Muse4u! Mon seul et unique but est : d'assouvir toutes tes envies, musicalement parlant bien sur ;) \u000AUne chose à faire, tape le titre de la musique que tu veux écouter et laisse moi m'occuper du reste! Simple & Efficace!! \u000AAmuse toi bien :)"
     facebook.replyMessage(senderID, msg);
 }
 
@@ -179,6 +179,7 @@ function handleMessage(event) {
 
 		*/
 
+		facebook.replyMessage(senderID, "Recherche du titre '"+messageText+"' \u000AVeuillez patienter...")
         youtube.searchSong(messageText, function (results) {
             if (results) {
                 const options = {
