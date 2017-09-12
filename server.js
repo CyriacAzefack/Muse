@@ -110,6 +110,10 @@ app.get('/', function (req, res) {
     // will time out and we will keep trying to resend.
     res.sendStatus(200);
   }
+  else {
+    console.log("Webhooks Type  :::::")
+    console.log(data.object)
+  }
 });
 
 
