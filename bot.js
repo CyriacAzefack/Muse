@@ -41,7 +41,7 @@ function handleMessage(event) {
 
 	if (messageText) { //Check if message is not empty
 
-		console.log("User Message : " + messageTexte)
+		console.log("User Message : " + messageText)
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
 			let replies = res.replies;	//All the bot replies
