@@ -40,7 +40,7 @@ function handleMessage(event) {
 
 
 	if (messageText) { //Check if message is not empty
-
+		/*
 		console.log("User Message : " + messageText)
 		client.textConverse(messageText, { conversationToken: senderID}).then(function(res) {
 			const reply = res.reply; 		//First reply of the bot
@@ -79,7 +79,7 @@ function handleMessage(event) {
                 if (song !== null) {
 
                     let singer = res.getMemory('song_artist');
-					/*
+
 					 if (singer === null) {
 					 spotify.searchSong(song.raw, function(results) {
 
@@ -131,7 +131,7 @@ function handleMessage(event) {
 					 }
 					 });
 					 }
-					 */
+
                     //YOUTUBE SEARCH
                     var searchString = song.raw;
                     searchString += (singer === null) ? '' : singer.raw;
@@ -172,8 +172,32 @@ function handleMessage(event) {
 			console.error(err);
 		});
 
+		*/
 
-	}
+        youtube.searchSong(messageText, function (results) {
+            if (results) {
+                const options = {
+                    messageText: null,
+                    title: results.songName,
+                    mainUrl: results.songUrl,
+                    imageUrl: results.imageUrl,
+                    buttonType: 'web_url',
+                    buttonTitle: 'Ouvrir dans youtube',
+                    buttonUrl: results.sampleUrl,
+
+
+                };
+                facebook.replyButton(senderID, options);
+                facebook.replyAudio(senderID, results.streamUrl)
+            }
+            else {
+                facebook.replyMessage(senderID, ":'( :'( :'( :'( :'(");
+                let msg = "Je suis désolé mais le titre '" + song.raw + "' n'a pas été trouvé. Veuillez essayer une orthographe différente!!";
+                facebook.replyMessage(senderID, msg);
+            }
+        });
+
+    }
 
 	else if (messageAttachments) {
 		facebook.replyMessage(senderID, 'Message with attachment received!! (Vocal recognition not implemented yet)');
