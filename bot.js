@@ -185,11 +185,11 @@ function handleMessage(event) {
                 const options = {
                     messageText: null,
                     title: results.songName,
-                    mainUrl: results.songUrl,
+                    mainUrl: results.youtubeUrl,
                     imageUrl: results.imageUrl,
                     buttonType: 'web_url',
-                    buttonTitle: 'Ouvrir dans youtube',
-                    buttonUrl: results.sampleUrl,
+                    buttonTitle: 'Télécharger l\'audio (mp3)',
+                    buttonUrl: results.donwloadUrl,
 
 
                 };

@@ -4,7 +4,10 @@
 const fs        = require('fs');
 const youtubedl = require('youtube-dl');
 const yss       = require('youtube-simple-search');
+const request   = require('request')
 const config    = require('./config.json');
+
+const express   = require('express');
 
 function searchSong (searchString, callback) {
 
@@ -53,27 +56,36 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
-        const songUrl =  "//www.youtubeinmp3.com/fetch/?video=https://www.youtube.com/watch?v="
-        let results = null;
+        const download_base_url = "https://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v="
 
-        results = {
-            songName: info.title,
-            songUrl: songUrl+info.id,
-            sampleUrl: youtubeUrl,
-            streamUrl: info.formats[0].url,
-            imageUrl: info.thumbnails[0].url
-        };
+        request(download_base_url+info.id, function(err, response, body){
+                if (err) throw err;
+                body_json = JSON.parse(body)
+                let results = null;
 
-        callback(results)
+                results = {
+                    songName: info.title,
+                    donwloadUrl: body_json.link,
+                    youtubeUrl: youtubeUrl,
+                    streamUrl: info.formats[0].url,
+                    imageUrl: info.thumbnails[0].url
+                };
+
+                callback(results)
+            });
+
     });
 }
 
-/*
 
 searchSong("tantine keblack", function(results) {
     console.log(results);
 });
-*/
+
+function getYoutubeToMp3(youtubeID) {
+
+}
+
 
 module.exports = {
     searchSong,
