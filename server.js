@@ -180,7 +180,4 @@ function sendGenericMessage(recipientId) {
 }
 
 
-app.get()
-
-
 
