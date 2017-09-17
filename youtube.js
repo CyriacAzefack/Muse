@@ -65,7 +65,7 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 
                 results = {
                     songName: info.title,
-                    donwloadUrl: body_json.link,
+                    donwloadUrl: body_json.link+'&v='+info.id,
                     youtubeUrl: youtubeUrl,
                     streamUrl: info.formats[0].url,
                     imageUrl: info.thumbnails[0].url
@@ -77,11 +77,10 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     });
 }
 
-/*
-searchSong("tantine keblack", function(results) {
+searchSong("Essengo", function(results) {
     console.log(results);
 });
-*/
+
 function getYoutubeToMp3(youtubeID) {
 
 }
