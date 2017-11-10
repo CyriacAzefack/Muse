@@ -27,9 +27,10 @@ function searchSong (searchString, callback) {
 
         for (let result of results) {
 
-            console.log(result);
+            //console.log(result);
             if(result.id.kind == "youtube#video") {
                 var url = urlRoot + result.id.videoId;
+                console.log(url)
                 getYoutubeAudioURL(url, callback);
 
                 break;
@@ -56,16 +57,18 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('filename: ' + info._filename);
         console.log('size: ' + info.size);
 
-        const download_base_url = "https://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v="
-
+        //const download_base_url = "https://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v="
+        const download_base_url = "https://www.youtube.com/watch?v="
+        console.log(download_base_url+info.id)
         request(download_base_url+info.id, function(err, response, body){
                 if (err) throw err;
-                body_json = JSON.parse(body)
+                //body_json = JSON.parse(body)
                 let results = null;
 
                 results = {
                     songName: info.title,
-                    donwloadUrl: body_json.link+'&v='+info.id,
+                    //donwloadUrl: body_json.link+'&v='+info.id,
+                    donwloadUrl: youtubeUrl,
                     youtubeUrl: youtubeUrl,
                     streamUrl: info.formats[0].url,
                     imageUrl: info.thumbnails[0].url
@@ -76,11 +79,11 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
 
     });
 }
-/*
+
 searchSong("Essengo", function(results) {
     console.log(results);
 });
-*/
+
 function getYoutubeToMp3(youtubeID) {
 
 }
