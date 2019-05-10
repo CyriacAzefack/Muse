@@ -28,7 +28,7 @@ function searchSong (searchString, callback) {
         for (let result of results) {
 
             //console.log(result);
-            if(result.id.kind == "youtube#video") {
+            if(result.id.kind === "youtube#video") {
                 var url = urlRoot + result.id.videoId;
                 console.log(url)
                 getYoutubeAudioURL(url, callback);
@@ -46,7 +46,7 @@ function searchSong (searchString, callback) {
 function getYoutubeAudioURL(youtubeUrl, callback) {
 
     //const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download', '--get-url']
-    const options = ['-x', '--format=bestaudio/best', '--audio-format=mp3', '--skip-download']
+    const options = ['-x', '--format=bestaudio/best', '--audio-format=mp3', '--skip-download'];
     // Optional arguments passed to youtube-dl.
     //var options = ['--username=user', '--password=hunter2'];
     youtubedl.getInfo(youtubeUrl, options, function(err, info) {
@@ -58,8 +58,8 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
         console.log('size: ' + info.size);
 
         //const download_base_url = "https://www.youtubeinmp3.com/fetch/?format=JSON&video=https://www.youtube.com/watch?v="
-        const download_base_url = "https://www.youtube.com/watch?v="
-        console.log(download_base_url+info.id)
+        const download_base_url = "https://www.youtube.com/watch?v=";
+        // console.log(download_base_url+info.id)
         request(download_base_url+info.id, function(err, response, body){
                 if (err) throw err;
                 //body_json = JSON.parse(body)
@@ -80,9 +80,9 @@ function getYoutubeAudioURL(youtubeUrl, callback) {
     });
 }
 
-searchSong("Essengo", function(results) {
-    console.log(results);
-});
+// searchSong("Essengo", function(results) {
+//     console.log(results);
+// });
 
 function getYoutubeToMp3(youtubeID) {
 

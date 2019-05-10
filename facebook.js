@@ -8,6 +8,7 @@
 const request = require('request');
 
 const config = require('./config.json');
+const youtube = require('./youtube.js');
 
 
 
@@ -76,7 +77,7 @@ function replyAudio(recipientID, audioUrl) {
         },
     };
 
-    callSendAPI(messageData);
+    callSendAPI(messageData, true);
 }
 /*
 ###############
@@ -84,9 +85,16 @@ function replyAudio(recipientID, audioUrl) {
 ################
 */  
 //Call the SEND API
-function callSendAPI(messageData) {
+function callSendAPI(messageData, isAttachment=false) {
+	url = null;
+	if (isAttachment){
+		url = 'https://graph.facebook.com/v2.6/me/message_attachments';
+	}
+	else {
+		url = 'https://graph.facebook.com/v2.6/me/messages';
+	}
   request({
-    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    uri: url,
     qs: { access_token: config.facebook.pageAccessToken},
     method: 'POST',
     json: messageData
@@ -142,3 +150,11 @@ module.exports = {
 	replyButton,
 	replyAudio
 };
+
+youtube.searchSong("MHD bébé", function(results) {
+	cyriac_id = "1289358267826971";
+
+	replyAudio(cyriac_id, results.streamUrl)
+    console.log(results);
+});
+
