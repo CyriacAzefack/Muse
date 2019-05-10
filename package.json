@@ -18,7 +18,7 @@
     "recastai": "^2.3.0",
     "request": "^2.83.0",
     "spotify-web-api-node": "^2.5.0",
-    "youtube-dl": "1.11.1",
+    "youtube-dl": "^1.13.1",
     "youtube-simple-search": "^0.1.1"
   },
   "repository": {

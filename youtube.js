@@ -45,8 +45,8 @@ function searchSong (searchString, callback) {
 
 function getYoutubeAudioURL(youtubeUrl, callback) {
 
-    const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download', '--get-url']
-
+    //const options = ['--format=bestaudio/best', '--extract-audio', '--skip-download', '--get-url']
+    const options = ['-x', '--format=bestaudio/best', '--audio-format=mp3', '--skip-download']
     // Optional arguments passed to youtube-dl.
     //var options = ['--username=user', '--password=hunter2'];
     youtubedl.getInfo(youtubeUrl, options, function(err, info) {
