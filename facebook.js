@@ -69,7 +69,7 @@ function replyAudio(recipientID, audioUrl) {
         },
         message: {
             attachment: {
-                type: 'audio',
+                type: 'file',
                 payload: {
                 	url: audioUrl,
                 },

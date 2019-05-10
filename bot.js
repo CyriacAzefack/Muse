@@ -51,7 +51,7 @@ function handleMessage(event) {
                     imageUrl: results.imageUrl,
                     buttonType: 'web_url',
                     buttonTitle: 'Télécharger l\'audio (mp3)',
-                    buttonUrl: results.streamUrl,
+                    buttonUrl: results.donwloadUrl,
 
                 };
                 facebook.replyButton(senderID, options);
