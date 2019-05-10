@@ -1,7 +1,7 @@
 
 /*
 #########################
-# WELCOM TO MUSE Server #
+# WELCOME TO MUSE Server #
 #########################
 */
 
